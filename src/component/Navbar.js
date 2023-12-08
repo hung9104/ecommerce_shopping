@@ -8,9 +8,10 @@ import LogoShopping from '../assets/img/LogoShopping/LogoShopping.jpg';
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
-function Navbar(searchBtn) {
+function Navbar({searchBtn}) {
     const [search, setSearch] = useState()
     const { loginWithRedirect, logout, user, isAuthenticated } = useAuth0();
+   
     return (
         <>
             <div className="header">
@@ -22,7 +23,7 @@ function Navbar(searchBtn) {
 
                     <div className="search_box">
                         <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search Product"></input>
-                        <button type="button" onClick={() => searchBtn(search)}>Search</button>
+                        <Link to='/product'><button type="button" onClick={() => searchBtn(search)}>Search</button></Link>
                     </div>
 
                     <div className="icon">
@@ -40,7 +41,9 @@ function Navbar(searchBtn) {
                         }
                         
                         <div className="bag_icon">
-                            <Link to="/cart" className="link"><BsBagCheck/></Link>
+                            <Link to="/cart" className="link">
+                                <BsBagCheck />
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -61,6 +64,9 @@ function Navbar(searchBtn) {
                             </li>
                             <li>
                                 <Link to='/contact' className="link">Contact</Link>
+                            </li>
+                            <li>
+                                <Link to='/checkout' className="link">Checkout</Link>
                             </li>
                         </ul>   
                     </div>

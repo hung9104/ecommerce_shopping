@@ -1,11 +1,24 @@
-import React, { useState } from "react";
+import {React, useEffect} from "react";
 import ProductList from "./ProductList";
 import { AiOutlineCloseCircle, AiOutlineShoppingCart } from "react-icons/ai";
 import { BsEye } from "react-icons/bs";
+import { useAuth0 } from "@auth0/auth0-react";
 
 
+const Products = ({product, setProduct, detail, view, close, setClose, addtocart}) => {
 
-const Products = ({product, setProduct, detail, view, close, setClose}) => {
+    useEffect(() => {
+        const fetchData = async () => {
+          const response = await fetch("https://656eb5346529ec1c62368337.mockapi.io/product");
+            const jsonData = await response.json();
+            setProduct(jsonData);
+        };
+    
+        fetchData();
+      }, [setProduct])
+
+    const { loginWithRedirect, isAuthenticated } = useAuth0();
+    
     const filterProduct = (product) => {
         const searchCat = ProductList.filter((cat) => {
             return cat.cat === product
@@ -22,7 +35,7 @@ const Products = ({product, setProduct, detail, view, close, setClose}) => {
                 close ?
                 <div className="product_detail">
                 <div className="container">   
-                        <button onClick={() => setClose(false)} className="closebtn"><AiOutlineCloseCircle/></button>              
+                        <button onClick={() => setClose(false)} className="closebtn"><AiOutlineCloseCircle/></button>             
                         {
                         detail.map((product) => {
                             return (
@@ -35,8 +48,8 @@ const Products = ({product, setProduct, detail, view, close, setClose}) => {
                                         <h4>{product.cat}</h4>
                                         <h2>{product.title}</h2>
                                         <p>A  Product Everyone Will Love...</p>
-                                        <h3>{product.price}</h3>
-                                        <button>Add To Cart</button>
+                                        <h3>${product.price}</h3>
+                                        <button onClick={() => addtocart(product)}>Add To Cart</button>
                                     </div>
                                 </div>
                             )
@@ -72,7 +85,12 @@ const Products = ({product, setProduct, detail, view, close, setClose}) => {
                                                 <div className="img_box">
                                                     <img className="product_img" src={product.img} alt=""/>
                                                     <div className="icon">
-                                                        <li><AiOutlineShoppingCart/></li>
+                                                        {
+                                                            isAuthenticated ?
+                                                            <li onClick={() => addtocart(product)}><AiOutlineShoppingCart/></li>
+                                                            : 
+                                                            <li onClick={() => loginWithRedirect()}><AiOutlineShoppingCart/></li>
+                                                        }
                                                         <li onClick={() => view(product)}><BsEye/></li>
                                                     </div>
                                                 </div>
@@ -80,7 +98,7 @@ const Products = ({product, setProduct, detail, view, close, setClose}) => {
                                                 <div className="detail">
                                                     <p>{product.cat}</p>
                                                     <h3>{product.title}</h3>
-                                                    <h4>{product.price}</h4>
+                                                    <h4>${product.price}</h4>
                                                 </div>
                                             </div>
                                         </>
