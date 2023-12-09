@@ -7,15 +7,15 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 const Products = ({product, setProduct, detail, view, close, setClose, addtocart}) => {
 
-    useEffect(() => {
-        const fetchData = async () => {
-          const response = await fetch("https://656eb5346529ec1c62368337.mockapi.io/product");
-            const jsonData = await response.json();
-            setProduct(jsonData);
-        };
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //       const response = await fetch("https://656eb5346529ec1c62368337.mockapi.io/product");
+    //         const jsonData = await response.json();
+    //         setProduct(jsonData);
+    //     };
     
-        fetchData();
-      }, [setProduct])
+    //     fetchData();
+    //   }, [setProduct])
 
     const { loginWithRedirect, isAuthenticated } = useAuth0();
     
