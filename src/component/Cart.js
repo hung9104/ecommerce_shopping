@@ -10,26 +10,30 @@ const Cart = ({ cart, setCart, totalPrice }) => {
     fullname: yup.string().required(),
     address: yup.string().required(),
     email: yup.string().required(),
-    mobile: yup.string().required(),
+    mobile: yup.number().required(),
   });
 
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
     resolver: yupResolver(schema),
   });
 
   const [user, setUser] = useState({
-    fullname: '',
-    mobile: '',
-    address: '',
-    email: '',
+    fullname: "",
+    mobile: "",
+    address: "",
+    email: "",
   });
 
   const data = (e) => {
-  const name = e.target.name;
-  const value = e.target.value;
-  setUser({ ...user, [name]: value });
-};
-
+    const name = e.target.name;
+    const value = e.target.value;
+    setUser({ ...user, [name]: value });
+  };
 
   const incqty = (product) => {
     const quantity = cart.find((p) => p.id === product.id);
@@ -65,26 +69,22 @@ const Cart = ({ cart, setCart, totalPrice }) => {
     }
   };
 
-  const checkout = async () => {
-    const { fullname, mobile, address, email } = user;
+  const checkout = async (data) => {
+    // const { fullname, mobile, address, email } = user;
     const userInfo = {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        fullname,
-        mobile,
-        address,
-        email,
-      }),
+      body: JSON.stringify(data),
     };
 
     const res = await fetch(
-      'https://656eb5346529ec1c62368337.mockapi.io/userInfo',
+      "https://656eb5346529ec1c62368337.mockapi.io/userInfo",
       userInfo
     );
-    console.log(res);
+    setCart([]);
+    reset();
   };
 
   return (
@@ -143,21 +143,20 @@ const Cart = ({ cart, setCart, totalPrice }) => {
               <div className="user_info">
                 <form
                   onSubmit={handleSubmit(checkout)}
-                  method="POST"
                   className="form-control"
                 >
                   <h4>User Information</h4>
                   <div className="form-group mb-3">
                     <label className="form-label">Fullname</label>
                     <input
-                      value={user.fullname}
+                      // value={user.fullname}
                       onChange={data}
                       type="text"
                       className={`form-control ${
-                        errors?.fullname?.message ? 'is-invalid' : ''
+                        errors?.fullname?.message ? "is-invalid" : ""
                       }`}
                       placeholder="Fullname"
-                      {...register('fullname')}
+                      {...register("fullname")}
                     />
                     <span className="invalid-feedback">
                       {errors?.fullname?.message}
@@ -167,14 +166,14 @@ const Cart = ({ cart, setCart, totalPrice }) => {
                   <div className="form-group mb-3">
                     <label className="form-label">Mobile</label>
                     <input
-                      defaultValue={user.mobile}
+                      // defaultValue={user.mobile}
                       onChange={data}
                       type="text"
                       className={`form-control ${
-                        errors?.mobile?.message ? 'is-invalid' : ''
+                        errors?.mobile?.message ? "is-invalid" : ""
                       }`}
                       placeholder="Mobile"
-                      {...register('mobile')}
+                      {...register("mobile")}
                     />
                     <span className="invalid-feedback">
                       {errors?.mobile?.message}
@@ -184,14 +183,14 @@ const Cart = ({ cart, setCart, totalPrice }) => {
                   <div className="form-group mb-3">
                     <label className="form-label">Email</label>
                     <input
-                      defaultValue={user.email}
+                      // defaultValue={user.email}
                       onChange={data}
                       type="text"
                       className={`form-control ${
-                        errors?.email?.message ? 'is-invalid' : ''
+                        errors?.email?.message ? "is-invalid" : ""
                       }`}
                       placeholder="Email"
-                      {...register('email')}
+                      {...register("email")}
                     />
                     <span className="invalid-feedback">
                       {errors?.email?.message}
@@ -201,14 +200,14 @@ const Cart = ({ cart, setCart, totalPrice }) => {
                   <div className="form-group mb-3">
                     <label className="form-label">Address</label>
                     <input
-                      defaultValue={user.address}
+                      // defaultValue={user.address}
                       onChange={data}
                       type="text"
                       className={`form-control ${
-                        errors?.address?.message ? 'is-invalid' : ''
+                        errors?.address?.message ? "is-invalid" : ""
                       }`}
                       placeholder="Address"
-                      {...register('address')}
+                      {...register("address")}
                     />
                     <span className="invalid-feedback">
                       {errors?.address?.message}
@@ -217,9 +216,9 @@ const Cart = ({ cart, setCart, totalPrice }) => {
                   <h2 className="total_price"> Total: ${totalPrice}</h2>
 
                   <div>
-                    <button type="submit" className="checkout">
-                      Checkout
-                    </button>
+                      <button type="submit" className="checkout">
+                        Checkout
+                      </button>
                   </div>
                 </form>
               </div>

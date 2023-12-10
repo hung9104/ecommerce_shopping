@@ -661,3 +661,7 @@ code {
   outline: none;
   background: #0989ff;
 }
+
+.userInfo thead tr th {
+  background-color: #4fa6f8;
+}

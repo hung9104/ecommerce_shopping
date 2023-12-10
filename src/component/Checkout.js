@@ -1,45 +1,49 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
 
-const Checkout = ({ cart, totalPrice }) => {
+const Checkout = () => {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        "https://656eb5346529ec1c62368337.mockapi.io/userInfo"
+      );
+      const result = await response.json();
+      setData(result);
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <>
-      <div className='checkout_container'>
-          {
-            cart && cart.length === 0 &&
-            <div className='empty_cart'>
-              <h2>Cart is empty</h2>
-              <Link to="/product" className='empty_cart_btn'>Choose your products</Link>
-            </div>
-          }
-          <div className="contant">
-                    {
-                        cart && cart.map((product) => {
-                            return (
-                              <div className="contant col-md-9">
-                                  <>
-                                    <div className="cart_item" key={product.id}>
-                                      <div className="img_box">
-                                        <img src={product.img} alt={product.title}></img>
-                                      </div>
-                                      <div className="detail">
-                                        <div className="info">
-                                          <h4>{product.cat}</h4>
-                                          <h3>{product.title}</h3>
-                                          <p>Price: ${product.price}</p>
-                                          <div className="qty">
-                                            <p>Quantity: {product.qty}</p>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </>
-                            </div>
-                            )
-                        })
-                    }
-                </div>
+      <div className="container">
+        {data ? (
+          <table className="table userInfo table-striped table-hover">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Fullname</th>
+                <th scope="col">Mobile</th>
+                <th scope="col">Email</th>
+                <th scope="col">Address</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.map((item) => (
+                <tr key={item.id}>
+                  <th scope="row">{item.id}</th>
+                  <td>{item.fullname}</td>
+                  <td>{item.mobile}</td>
+                  <td>{item.email}</td>
+                  <td>{item.address}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <p>Loading...</p>
+        )}
       </div>
     </>
   );

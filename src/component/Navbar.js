@@ -11,7 +11,10 @@ import { useAuth0 } from "@auth0/auth0-react";
 function Navbar({searchBtn}) {
     const [search, setSearch] = useState()
     const { loginWithRedirect, logout, user, isAuthenticated } = useAuth0();
-   
+    const handleSearchClick = () => {
+        searchBtn(search);
+      };
+    //   console.log(search);
     return (
         <>
             <div className="header">
@@ -23,7 +26,7 @@ function Navbar({searchBtn}) {
 
                     <div className="search_box">
                         <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search Product"></input>
-                        <Link to='/product'><button type="button" onClick={() => searchBtn(search)}>Search</button></Link>
+                        <Link to='/product'><button type="button" onClick={handleSearchClick}>Search</button></Link>
                     </div>
 
                     <div className="icon">

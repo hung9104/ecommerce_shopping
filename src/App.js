@@ -2,23 +2,48 @@ import './App.css';
 import Navbar from './component/Navbar';
 import Path from './component/Path.js';
 import { BrowserRouter } from 'react-router-dom';
-import ProductList from './component/Product/ProductList.js';
+// import ProductList from './component/Product/ProductList.js';
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 
 function App() {
+  // useEffect (() => {
+  //   async function getData() {
+  //     const res = await fetch('https://656eb5346529ec1c62368337.mockapi.io/product')
+  //     const data = await res.json()
+  //     setProductList(data)
+  //   }
+  //   getData()
+  // },[])
+
+  // const [ProductList, setProductList] = useState([])
+
+  const [productList, setProductList] = useState([]);
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch(
+        "https://656eb5346529ec1c62368337.mockapi.io/product"
+      );
+      const jsonData = await response.json();
+      // console.log(jsonData);
+      setProductList(jsonData);
+    }
+
+    fetchData();
+  }, []);
+
   // Add to cart
   const [cart, setCart] = useState([])
   //product detail
   const [close, setClose] = useState(false)
   const [detail, setDetail] = useState([])
   //filter product
-  const [product, setProduct] = useState(ProductList )
+  const [product, setProduct] = useState()
   const searchBtn = (product) => {
-    const searchText = ProductList.filter((p) => {
+    const searchText = productList.filter((p) => {
       return p.title.toLowerCase().includes(product.toLowerCase())
     })
-    console.log(searchText);
+    // console.log(searchText);
     setProduct(searchText)
   }
 
@@ -32,6 +57,7 @@ function App() {
   const view = (product) => {
     setDetail([{...product}])
     setClose(true)
+    console.log(product);
   }
 
   // Add to cart
@@ -67,7 +93,7 @@ function App() {
     <>
     <BrowserRouter>
       <Navbar searchBtn ={searchBtn}/>
-      <Path totalPrice={totalPrice} product={product} setProduct={setProduct} detail={detail} view={view} close={close} setClose={setClose} cart={cart} setCart={setCart} addtocart={addtocart}/>
+      <Path productList={productList} setProductList={setProductList} totalPrice={totalPrice} product={product} setProduct={setProduct} detail={detail} view={view} close={close} setClose={setClose} cart={cart} setCart={setCart} addtocart={addtocart}/>
     </BrowserRouter>
     </>
   );
