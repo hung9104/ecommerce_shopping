@@ -12,7 +12,7 @@ function Home() {
                 <div className="container">
                     <div className="detail">
                         <h2>The Best Products 2023</h2>
-                        <Link to='/product' className="link"><FaShoppingBag/>Shop Now</Link>
+                        <Link to='/product' className="link"><FaShoppingBag/>  Shop Now</Link>
                     </div>
 
                     <div className="img_box">

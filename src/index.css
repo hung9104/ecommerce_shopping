@@ -665,3 +665,121 @@ code {
 .userInfo thead tr th {
   background-color: #4fa6f8;
 }
+
+.contact {
+  padding: 30px 40px;
+  width: 100%;
+  background: white;
+}
+
+.contact .contant {
+  padding: 10px 20px;
+}
+
+.contact .contant h2 {
+  margin-left: 400px;
+}
+
+.contact .contant p {
+  margin-left: 350px;
+  margin-top: 20px;
+}
+
+.contact .contant .form {
+  padding: 20px 30px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.contact .contant .form form {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact .contant .form form input {
+  padding: 10px 30px;
+  border: none;
+  outline: none;
+  background: none;
+  border-bottom: 1px solid black;
+  width: 500px;
+  margin-top: 20px;
+  margin-left: 250px;
+}
+
+.contact .contant .form form textarea {
+  padding: 10px 30px;
+  border: none;
+  outline: none;
+  background: none;
+  border-bottom: 1px solid black;
+  width: 500px;
+  margin-top: 20px;
+  resize: none;
+  margin-left: 250px;
+}
+
+.contact .contant .form form button {
+  margin-top: 30px;
+  width: 100px;
+  padding: 10px 0px;
+  border: none;
+  outline: none;
+  background: none;
+  background: black;
+  margin-left: 450px;
+  color: white;
+}
+
+
+.about_infomation {
+  padding: 30px 40px;
+  width: 100%;
+  background: rgb(255, 255, 255);
+}
+
+.about_infomation .info {
+  padding: 10px 20px;
+}
+
+.about_infomation .info .blog {
+  padding: 20px 30px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.about_infomation .info .blog button {
+  margin-top: 30px;
+  padding: 10px 10px;
+  border: none;
+  outline: none;
+  background: none;
+  background: black;
+  color: white;
+}
+
+.about_contact {
+  padding: 0px 40px;
+  width: 100%;
+  background: rgb(255, 255, 255);
+}
+
+
+.about_contact .info .blog_contact {
+  padding: 20px 30px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.about_contact .info .blog_contact button {
+  margin-top: 30px;
+  padding: 10px 10px;
+  border: none;
+  outline: none;
+  background: none;
+  background: black;
+  color: white;
+}
